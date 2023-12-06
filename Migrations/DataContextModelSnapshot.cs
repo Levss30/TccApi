@@ -62,10 +62,10 @@ namespace TccApi.Migrations
                             Id = 1L,
                             EstabelecimentoId = 1L,
                             FormasDePagamento = 0,
-                            Hora_ag = new DateTime(2023, 12, 5, 23, 48, 11, 810, DateTimeKind.Local).AddTicks(3767),
+                            Hora_ag = new DateTime(2023, 12, 6, 3, 27, 28, 459, DateTimeKind.Local).AddTicks(7530),
                             Local_ag = "Av. Ramiz Galvão",
                             UsuarioId = 1L,
-                            data_ag = new DateTime(2023, 12, 5, 0, 0, 0, 0, DateTimeKind.Local)
+                            data_ag = new DateTime(2023, 12, 6, 0, 0, 0, 0, DateTimeKind.Local)
                         });
                 });
 
@@ -77,8 +77,8 @@ namespace TccApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<int>("CEP")
-                        .HasColumnType("int");
+                    b.Property<string>("CEP")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Cnpj")
                         .HasColumnType("nvarchar(max)");
@@ -104,7 +104,7 @@ namespace TccApi.Migrations
                     b.Property<byte[]>("Senha_salt")
                         .HasColumnType("varbinary(max)");
 
-                    b.Property<int>("TipoUsuario")
+                    b.Property<int>("Telefone")
                         .HasColumnType("int");
 
                     b.Property<long>("UsuarioId")
@@ -120,13 +120,13 @@ namespace TccApi.Migrations
                         new
                         {
                             Id = 1L,
-                            CEP = 2223001,
+                            CEP = "02223001",
                             Cnpj = "12123456/0001-12",
                             Complemento = 4,
                             Endereco = "Av. Ramiz Galvão",
                             Nome_est = "CutsCuts",
                             Numero_est = 1082,
-                            TipoUsuario = 1,
+                            Telefone = 934958271,
                             UsuarioId = 1L
                         });
                 });
@@ -171,8 +171,8 @@ namespace TccApi.Migrations
                             Cpf = "500.230.222-32",
                             Email = "Agatha.linhares@gmail.com",
                             Nome = "Agatha",
-                            Senha_hash = new byte[] { 5, 94, 115, 78, 188, 245, 73, 29, 23, 179, 226, 25, 163, 49, 221, 232, 219, 47, 112, 1, 122, 29, 196, 227, 62, 134, 62, 41, 172, 222, 104, 146, 121, 116, 177, 123, 153, 188, 200, 223, 168, 183, 55, 207, 25, 140, 81, 17, 207, 183, 176, 127, 186, 5, 110, 101, 203, 224, 235, 221, 140, 35, 191, 93 },
-                            Senha_salt = new byte[] { 232, 200, 122, 24, 10, 96, 21, 101, 12, 79, 48, 171, 195, 90, 65, 114, 164, 59, 49, 219, 12, 76, 103, 165, 233, 80, 178, 171, 36, 192, 134, 70, 200, 38, 115, 222, 40, 211, 24, 172, 40, 19, 71, 200, 144, 187, 208, 197, 200, 118, 173, 213, 147, 94, 178, 152, 109, 24, 168, 53, 228, 6, 59, 18, 252, 210, 230, 247, 148, 238, 70, 130, 117, 19, 81, 84, 225, 71, 168, 189, 189, 16, 59, 11, 130, 73, 244, 58, 215, 233, 89, 217, 66, 229, 142, 49, 13, 253, 93, 145, 201, 102, 114, 144, 103, 30, 33, 96, 0, 111, 200, 37, 161, 146, 81, 244, 48, 138, 200, 74, 31, 61, 121, 42, 34, 168, 56, 218 },
+                            Senha_hash = new byte[] { 184, 225, 243, 1, 89, 22, 122, 86, 209, 97, 148, 145, 198, 240, 225, 152, 36, 25, 220, 160, 50, 37, 192, 72, 77, 79, 9, 92, 187, 222, 96, 5, 231, 81, 74, 28, 62, 172, 168, 112, 209, 193, 189, 152, 68, 152, 117, 250, 158, 21, 178, 126, 168, 140, 79, 166, 8, 165, 178, 221, 36, 155, 2, 76 },
+                            Senha_salt = new byte[] { 37, 255, 62, 248, 42, 159, 72, 49, 165, 203, 2, 195, 161, 230, 177, 163, 167, 217, 60, 173, 7, 254, 48, 124, 104, 176, 48, 133, 172, 206, 34, 252, 48, 74, 11, 193, 124, 236, 56, 188, 48, 222, 251, 225, 9, 23, 130, 223, 100, 156, 237, 156, 186, 21, 159, 119, 103, 65, 199, 83, 200, 194, 167, 216, 247, 171, 182, 156, 14, 123, 183, 147, 24, 142, 171, 99, 30, 69, 193, 123, 32, 19, 96, 9, 152, 242, 12, 224, 48, 143, 187, 129, 40, 20, 216, 47, 163, 7, 68, 253, 32, 3, 10, 99, 189, 102, 138, 43, 5, 146, 199, 173, 114, 74, 16, 232, 54, 54, 244, 236, 80, 186, 110, 148, 157, 136, 231, 145 },
                             TipoUsuario = 0
                         });
                 });

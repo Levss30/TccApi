@@ -1,14 +1,18 @@
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using TccApi.Data;
 using TccApi.Models;
 using TccApi.Utils;
+
 
 namespace TccApi.Controllers
 {
@@ -34,11 +38,11 @@ namespace TccApi.Controllers
         {
             try
             {
-                Estabelecimento a = await _context.Estabelecimentos
-                .Include(user => user.Usuario)
+                Estabelecimento e = await _context.Estabelecimentos
+                .Include(est => est.Usuario)
                 .FirstOrDefaultAsync(eBusca => eBusca.Id == id);
 
-                return Ok(a);
+                return Ok(e);
             }
             catch (Exception ex)
             {
@@ -64,7 +68,7 @@ namespace TccApi.Controllers
             }
         }
 
-        private int ObterUsuarioId()
+        private int ObterEstabelecimentoId()
         {
             return int.Parse(_httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
         }
@@ -81,26 +85,86 @@ namespace TccApi.Controllers
 
         [AllowAnonymous]
         [HttpPost("Registrar")]
-        public async Task<ActionResult> RegistrarUsuario(Estabelecimento est)
+        public async Task<ActionResult> RegistrarEstablecimento(Estabelecimento user)
         {
             try
             {
-                if (await EstabelecimentoExistente(est.Email))
-                    throw new System.Exception("Email já cadastrado");
+                if (await EstabelecimentoExistente(user.Email))
+                    throw new System.Exception("Estabelecimento já cadastrado");
 
-                Criptografia.CriarSenhaHash(est.Senha, out byte[] hash, out byte[] salt);
-                est.Senha = string.Empty;
-                est.Senha_hash = hash;
-                est.Senha_salt = salt;
-                await _context.Estabelecimentos.AddAsync(est);
+                Criptografia.CriarSenhaHash(user.Senha, out byte[] hash, out byte[] salt);
+                user.Senha = string.Empty;
+                user.Senha_hash = hash;
+                user.Senha_salt = salt;
+                await _context.Estabelecimentos.AddAsync(user);
                 await _context.SaveChangesAsync();
 
-                return Ok(est.Email);
+                return Ok(user.Id);
+            }
+catch (System.Exception ex)
+    {
+        // Adicione estas linhas para exibir detalhes da exceção interna
+        if (ex.InnerException != null)
+        {
+            return BadRequest($"Erro: {ex.Message}, Detalhes: {ex.InnerException.Message}");
+        }
+        else
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+        }
+
+        [AllowAnonymous]
+        [HttpPost("Autenticar")]
+        public async Task<IActionResult> AutenticarEstabelecimento(Estabelecimento credenciais)
+        {
+            try
+            {
+                Estabelecimento estabelecimento = await _context.Estabelecimentos
+                   .FirstOrDefaultAsync(x => x.Email.ToLower().Equals(credenciais.Email.ToLower()));
+
+                if (estabelecimento == null)
+                {
+                    throw new System.Exception("Estabelecimento não encontrado.");
+                }
+                else if (!Criptografia
+                .VerificarSenhaHash(credenciais.Senha, estabelecimento.Senha_hash, estabelecimento.Senha_salt))
+                {
+                    throw new System.Exception("Senha incorreta.");
+                }
+                else
+                {
+                    estabelecimento.Senha_hash = null;
+                    estabelecimento.Senha_salt = null;
+                    estabelecimento.Token = CriarToken(estabelecimento);
+                    return Ok(estabelecimento);
+                }
             }
             catch (System.Exception ex)
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+                private string CriarToken(Estabelecimento est)
+        {
+            List<Claim> claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, est.Id.ToString()),
+                new Claim(ClaimTypes.Name, est.Email)
+            };
+            SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("ConfiguracaoToken:Chave").Value));
+            SigningCredentials creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+            SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(claims),
+                Expires = DateTime.Now.AddDays(1),
+                SigningCredentials = creds
+            };
+            JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+            SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
         }
 
         [HttpPost]
@@ -110,11 +174,11 @@ namespace TccApi.Controllers
             {
                 if (novoEstabelecimento.Cnpj == null)
                 {
-                    throw new System.Exception("O nome não pode estar vazio");
+                    throw new System.Exception("O cnpj não pode estar vazio");
                 }
 
                 novoEstabelecimento.Usuario = _context.Usuarios
-                .FirstOrDefault(uBusca => uBusca.Id == ObterUsuarioId());
+                .FirstOrDefault(uBusca => uBusca.Id == ObterEstabelecimentoId());
 
                 await _context.Estabelecimentos.AddAsync(novoEstabelecimento);
                 await _context.SaveChangesAsync();
@@ -137,7 +201,7 @@ namespace TccApi.Controllers
                     throw new System.Exception("O nome não pode estar vazio");
                 }
 
-                novoEstabelecimento.Usuario = _context.Usuarios.FirstOrDefault(uBusca => uBusca.Id == ObterUsuarioId());
+                novoEstabelecimento.Usuario = _context.Usuarios.FirstOrDefault(uBusca => uBusca.Id == ObterEstabelecimentoId());
 
                 _context.Estabelecimentos.Update(novoEstabelecimento);
                 int linhasAfetadas = await _context.SaveChangesAsync();

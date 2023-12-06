@@ -21,23 +21,24 @@ namespace TccApi.Models
 
         public string Endereco { get; set; }
 
-        public int CEP { get; set; }
+        public int Telefone { get; set; }
+
+        public string CEP { get; set; }
 
         public int Complemento { get; set; }
 
         [NotMapped]
         public string Senha { get; set;}
 
+        [NotMapped]
+        public string Token { get; set; }
+
         public byte[]? Senha_hash { get; set; }
 
         public byte[]? Senha_salt { get; set; }
 
         public int Numero_est { get; set; }
-
         public long UsuarioId { get; set; }
-
-        public TipoClasseUsuario TipoUsuario { get; set; }
-
         public List<Agendamento> Agendamentos { get; set; }
 
         [JsonIgnore]

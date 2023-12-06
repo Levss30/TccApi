@@ -38,7 +38,7 @@ namespace TccApi.Data
             modelBuilder.Entity<Usuario>().HasData(user);
 
             modelBuilder.Entity<Estabelecimento>().HasData(
-                new Estabelecimento() { Id = 1, Cnpj = "12123456/0001-12", Nome_est = "CutsCuts", Endereco = "Av. Ramiz Galvão", CEP = 02223001, Complemento = 04, Numero_est = 1082, TipoUsuario = TipoClasseUsuario.Estabelecimento, UsuarioId = 1 }
+                new Estabelecimento() { Id = 1, Cnpj = "12123456/0001-12", Nome_est = "CutsCuts", Telefone = 934958271, Endereco = "Av. Ramiz Galvão", CEP = "02223001", Complemento = 04, Numero_est = 1082, UsuarioId = 1 }
             );
 
             modelBuilder.Entity<Agendamento>().HasData(
