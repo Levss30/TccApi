@@ -322,3 +322,8 @@ D:\TCC\TccApi\obj\Debug\net7.0\refint\TccApi.dll
 D:\TCC\TccApi\obj\Debug\net7.0\TccApi.pdb
 D:\TCC\TccApi\obj\Debug\net7.0\TccApi.genruntimeconfig.cache
 D:\TCC\TccApi\obj\Debug\net7.0\ref\TccApi.dll
+D:\TCC\TccApi\bin\Debug\net7.0\publish\web.config
+D:\TCC\TccApi\bin\Debug\net7.0\publish\appsettings.Development.json
+D:\TCC\TccApi\bin\Debug\net7.0\publish\appsettings.json
+D:\TCC\TccApi\bin\Debug\net7.0\publish\TccApi.deps.json
+D:\TCC\TccApi\bin\Debug\net7.0\publish\TccApi.runtimeconfig.json

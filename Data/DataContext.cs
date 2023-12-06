@@ -26,7 +26,7 @@ namespace TccApi.Data
             Usuario user = new Usuario();
             Criptografia.CriarSenhaHash("123456789", out byte[] hash, out byte[] salt);
             user.Id = 1;
-            user.Cpf = 50023022232;
+            user.Cpf = "500.230.222-32";
             user.Nome = "Agatha";
             user.Email = "Agatha.linhares@gmail.com";
             user.Foto = null;

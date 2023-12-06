@@ -12,7 +12,7 @@ namespace TccApi.Models
     {
         public long Id { get; set; }
 
-        public long Cpf { get; set; }
+        public string Cpf { get; set; }
 
         public string Nome { get; set; }
 
