@@ -12,7 +12,7 @@ using TccApi.Data;
 namespace TccApi.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231108213920_InitialCreate")]
+    [Migration("20231206022542_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -65,10 +65,10 @@ namespace TccApi.Migrations
                             Id = 1L,
                             EstabelecimentoId = 1L,
                             FormasDePagamento = 0,
-                            Hora_ag = new DateTime(2023, 11, 8, 18, 39, 20, 299, DateTimeKind.Local).AddTicks(880),
+                            Hora_ag = new DateTime(2023, 12, 5, 23, 25, 42, 96, DateTimeKind.Local).AddTicks(3410),
                             Local_ag = "Av. Ramiz Galvão",
                             UsuarioId = 1L,
-                            data_ag = new DateTime(2023, 11, 8, 0, 0, 0, 0, DateTimeKind.Local)
+                            data_ag = new DateTime(2023, 12, 5, 0, 0, 0, 0, DateTimeKind.Local)
                         });
                 });
 
@@ -89,6 +89,9 @@ namespace TccApi.Migrations
                     b.Property<int>("Complemento")
                         .HasColumnType("int");
 
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Endereco")
                         .HasColumnType("nvarchar(max)");
 
@@ -97,6 +100,12 @@ namespace TccApi.Migrations
 
                     b.Property<int>("Numero_est")
                         .HasColumnType("int");
+
+                    b.Property<byte[]>("Senha_hash")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<byte[]>("Senha_salt")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<int>("TipoUsuario")
                         .HasColumnType("int");
@@ -165,8 +174,8 @@ namespace TccApi.Migrations
                             Cpf = 50023022232L,
                             Email = "Agatha.linhares@gmail.com",
                             Nome = "Agatha",
-                            Senha_hash = new byte[] { 10, 226, 60, 110, 184, 81, 138, 12, 138, 157, 211, 146, 8, 116, 138, 164, 16, 140, 2, 198, 201, 176, 133, 64, 182, 44, 208, 199, 178, 9, 37, 194, 54, 255, 72, 86, 36, 140, 6, 40, 109, 76, 236, 253, 61, 243, 27, 21, 202, 201, 195, 187, 188, 1, 235, 251, 243, 35, 197, 61, 0, 168, 116, 121 },
-                            Senha_salt = new byte[] { 165, 229, 165, 147, 86, 48, 180, 211, 157, 86, 120, 167, 54, 253, 109, 66, 164, 37, 190, 44, 238, 106, 24, 96, 231, 243, 198, 127, 113, 129, 104, 52, 64, 251, 217, 238, 90, 134, 238, 247, 194, 108, 40, 187, 182, 223, 203, 22, 247, 214, 13, 31, 194, 84, 220, 28, 173, 44, 73, 124, 190, 148, 174, 51, 167, 30, 72, 68, 150, 140, 14, 66, 114, 91, 85, 82, 156, 103, 25, 107, 109, 218, 178, 16, 197, 134, 52, 125, 93, 84, 251, 19, 86, 10, 244, 192, 230, 196, 167, 101, 155, 80, 236, 240, 205, 107, 252, 44, 232, 219, 105, 251, 36, 183, 191, 171, 23, 131, 139, 246, 54, 7, 255, 22, 133, 65, 245, 152 },
+                            Senha_hash = new byte[] { 99, 19, 197, 131, 175, 169, 231, 57, 78, 116, 111, 119, 253, 36, 139, 75, 12, 110, 191, 58, 81, 183, 11, 127, 210, 194, 221, 226, 101, 171, 81, 173, 203, 112, 131, 94, 135, 56, 26, 25, 138, 95, 55, 136, 172, 239, 183, 213, 178, 37, 136, 111, 35, 33, 167, 63, 176, 43, 213, 115, 112, 126, 190, 224 },
+                            Senha_salt = new byte[] { 153, 18, 32, 53, 32, 56, 214, 176, 190, 32, 226, 191, 25, 161, 188, 30, 22, 222, 111, 113, 116, 192, 60, 125, 29, 144, 60, 105, 38, 250, 252, 168, 95, 24, 82, 125, 13, 70, 122, 209, 221, 102, 107, 251, 149, 205, 32, 166, 139, 58, 40, 123, 220, 161, 201, 93, 129, 172, 212, 200, 17, 105, 22, 108, 203, 184, 14, 128, 26, 52, 0, 28, 167, 53, 77, 240, 119, 72, 177, 172, 185, 81, 151, 81, 81, 63, 238, 140, 104, 14, 128, 174, 229, 135, 218, 200, 130, 225, 153, 153, 66, 217, 124, 204, 154, 68, 107, 77, 153, 249, 90, 10, 137, 142, 5, 173, 129, 225, 231, 239, 52, 210, 13, 125, 150, 180, 28, 248 },
                             TipoUsuario = 0
                         });
                 });

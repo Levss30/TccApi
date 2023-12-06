@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "pGovFt3Wzm0stl7ccllJ9uoTwfM9Z9UcZCkWeSXCPXzBbHNUGCR0tMvvBzCVqsJdw9Qkfs1MEeBGQwLAoITmJQ==",
+  "dgSpecHash": "xX1A6YnHyqUreGI6AD0Wjy6tvbOt4kHHd2IgFbdjHyKNYxtDD1d9f4g0xV/PV2F3dFPhEQ9czPQ+OAwH8iQEPw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Lucas\\Documents\\Apitcc\\Apitcc\\TccApi\\TccApi.csproj",
+  "projectFilePath": "D:\\TCC\\TccApi\\TccApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Lucas\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\Lucas\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",

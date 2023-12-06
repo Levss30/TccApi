@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TccApi.Data;
 using TccApi.Models;
+using TccApi.Utils;
 
 namespace TccApi.Controllers
 {
@@ -66,6 +67,40 @@ namespace TccApi.Controllers
         private int ObterUsuarioId()
         {
             return int.Parse(_httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
+        }
+
+        private async Task<bool> EstabelecimentoExistente(string email)
+        {
+            if (await _context.Estabelecimentos.AnyAsync(x => x.Email.ToLower() == email.ToLower()))
+            {
+                return true;
+            }
+            return false;
+        }
+
+
+        [AllowAnonymous]
+        [HttpPost("Registrar")]
+        public async Task<ActionResult> RegistrarUsuario(Estabelecimento est)
+        {
+            try
+            {
+                if (await EstabelecimentoExistente(est.Email))
+                    throw new System.Exception("Email já cadastrado");
+
+                Criptografia.CriarSenhaHash(est.Senha, out byte[] hash, out byte[] salt);
+                est.Senha = string.Empty;
+                est.Senha_hash = hash;
+                est.Senha_salt = salt;
+                await _context.Estabelecimentos.AddAsync(est);
+                await _context.SaveChangesAsync();
+
+                return Ok(est.Email);
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]

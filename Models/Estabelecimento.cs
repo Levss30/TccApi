@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using TccApi.Models.Enuns;
 
 namespace TccApi.Models
@@ -13,6 +15,8 @@ namespace TccApi.Models
 
         public string Cnpj { get; set; }
 
+        public string Email { get; set; }
+
         public string Nome_est { get; set; }
 
         public string Endereco { get; set; }
@@ -20,6 +24,13 @@ namespace TccApi.Models
         public int CEP { get; set; }
 
         public int Complemento { get; set; }
+
+        [NotMapped]
+        public string Senha { get; set;}
+
+        public byte[]? Senha_hash { get; set; }
+
+        public byte[]? Senha_salt { get; set; }
 
         public int Numero_est { get; set; }
 

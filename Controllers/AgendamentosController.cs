@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TccApi.Data;
 using TccApi.Models;
+using TccApi.Utils;
 
 namespace TccApi.Controllers
 {
@@ -77,7 +78,7 @@ namespace TccApi.Controllers
             {
                 if (novoAgendamento.Local_ag == null)
                 {
-                    throw new System.Exception("O nome não pode estar vazio");
+                    throw new System.Exception("Os campos não podem estar vazio");
                 }
 
                 novoAgendamento.Usuario = _context.Usuarios

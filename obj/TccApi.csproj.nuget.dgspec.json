@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Lucas\\Documents\\Apitcc\\Apitcc\\TccApi\\TccApi.csproj": {}
+    "D:\\TCC\\TccApi\\TccApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Lucas\\Documents\\Apitcc\\Apitcc\\TccApi\\TccApi.csproj": {
+    "D:\\TCC\\TccApi\\TccApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Lucas\\Documents\\Apitcc\\Apitcc\\TccApi\\TccApi.csproj",
+        "projectUniqueName": "D:\\TCC\\TccApi\\TccApi.csproj",
         "projectName": "TccApi",
-        "projectPath": "C:\\Users\\Lucas\\Documents\\Apitcc\\Apitcc\\TccApi\\TccApi.csproj",
+        "projectPath": "D:\\TCC\\TccApi\\TccApi.csproj",
         "packagesPath": "C:\\Users\\Lucas\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Lucas\\Documents\\Apitcc\\Apitcc\\TccApi\\obj\\",
+        "outputPath": "D:\\TCC\\TccApi\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

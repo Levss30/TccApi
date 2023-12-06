@@ -27,10 +27,13 @@ GO
 CREATE TABLE [Estabelecimentos] (
     [Id] bigint NOT NULL IDENTITY,
     [Cnpj] nvarchar(max) NULL,
+    [Email] nvarchar(max) NULL,
     [Nome_est] nvarchar(max) NULL,
     [Endereco] nvarchar(max) NULL,
     [CEP] int NOT NULL,
     [Complemento] int NOT NULL,
+    [Senha_hash] varbinary(max) NULL,
+    [Senha_salt] varbinary(max) NULL,
     [Numero_est] int NOT NULL,
     [UsuarioId] bigint NOT NULL,
     [TipoUsuario] int NOT NULL,
@@ -56,23 +59,23 @@ GO
 IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'Cpf', N'Email', N'Foto', N'Nome', N'Senha_hash', N'Senha_salt', N'TipoUsuario') AND [object_id] = OBJECT_ID(N'[Usuarios]'))
     SET IDENTITY_INSERT [Usuarios] ON;
 INSERT INTO [Usuarios] ([Id], [Cpf], [Email], [Foto], [Nome], [Senha_hash], [Senha_salt], [TipoUsuario])
-VALUES (CAST(1 AS bigint), CAST(50023022232 AS bigint), N'Agatha.linhares@gmail.com', NULL, N'Agatha', 0x0AE23C6EB8518A0C8A9DD39208748AA4108C02C6C9B08540B62CD0C7B20925C236FF4856248C06286D4CECFD3DF31B15CAC9C3BBBC01EBFBF323C53D00A87479, 0xA5E5A5935630B4D39D5678A736FD6D42A425BE2CEE6A1860E7F3C67F7181683440FBD9EE5A86EEF7C26C28BBB6DFCB16F7D60D1FC254DC1CAD2C497CBE94AE33A71E4844968C0E42725B55529C67196B6DDAB210C586347D5D54FB13560AF4C0E6C4A7659B50ECF0CD6BFC2CE8DB69FB24B7BFAB17838BF63607FF168541F598, 0);
+VALUES (CAST(1 AS bigint), CAST(50023022232 AS bigint), N'Agatha.linhares@gmail.com', NULL, N'Agatha', 0x6313C583AFA9E7394E746F77FD248B4B0C6EBF3A51B70B7FD2C2DDE265AB51ADCB70835E87381A198A5F3788ACEFB7D5B225886F2321A73FB02BD573707EBEE0, 0x991220352038D6B0BE20E2BF19A1BC1E16DE6F7174C03C7D1D903C6926FAFCA85F18527D0D467AD1DD666BFB95CD20A68B3A287BDCA1C95D81ACD4C81169166CCBB80E801A34001CA7354DF07748B1ACB9519751513FEE8C680E80AEE587DAC882E1999942D97CCC9A446B4D99F95A0A898E05AD81E1E7EF34D20D7D96B41CF8, 0);
 IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'Cpf', N'Email', N'Foto', N'Nome', N'Senha_hash', N'Senha_salt', N'TipoUsuario') AND [object_id] = OBJECT_ID(N'[Usuarios]'))
     SET IDENTITY_INSERT [Usuarios] OFF;
 GO
 
-IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'CEP', N'Cnpj', N'Complemento', N'Endereco', N'Nome_est', N'Numero_est', N'TipoUsuario', N'UsuarioId') AND [object_id] = OBJECT_ID(N'[Estabelecimentos]'))
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'CEP', N'Cnpj', N'Complemento', N'Email', N'Endereco', N'Nome_est', N'Numero_est', N'Senha_hash', N'Senha_salt', N'TipoUsuario', N'UsuarioId') AND [object_id] = OBJECT_ID(N'[Estabelecimentos]'))
     SET IDENTITY_INSERT [Estabelecimentos] ON;
-INSERT INTO [Estabelecimentos] ([Id], [CEP], [Cnpj], [Complemento], [Endereco], [Nome_est], [Numero_est], [TipoUsuario], [UsuarioId])
-VALUES (CAST(1 AS bigint), 2223001, N'12123456/0001-12', 4, N'Av. Ramiz Galvão', N'CutsCuts', 1082, 1, CAST(1 AS bigint));
-IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'CEP', N'Cnpj', N'Complemento', N'Endereco', N'Nome_est', N'Numero_est', N'TipoUsuario', N'UsuarioId') AND [object_id] = OBJECT_ID(N'[Estabelecimentos]'))
+INSERT INTO [Estabelecimentos] ([Id], [CEP], [Cnpj], [Complemento], [Email], [Endereco], [Nome_est], [Numero_est], [Senha_hash], [Senha_salt], [TipoUsuario], [UsuarioId])
+VALUES (CAST(1 AS bigint), 2223001, N'12123456/0001-12', 4, NULL, N'Av. Ramiz Galvão', N'CutsCuts', 1082, NULL, NULL, 1, CAST(1 AS bigint));
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'CEP', N'Cnpj', N'Complemento', N'Email', N'Endereco', N'Nome_est', N'Numero_est', N'Senha_hash', N'Senha_salt', N'TipoUsuario', N'UsuarioId') AND [object_id] = OBJECT_ID(N'[Estabelecimentos]'))
     SET IDENTITY_INSERT [Estabelecimentos] OFF;
 GO
 
 IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'EstabelecimentoId', N'FormasDePagamento', N'Hora_ag', N'Local_ag', N'UsuarioId', N'data_ag') AND [object_id] = OBJECT_ID(N'[Agendamentos]'))
     SET IDENTITY_INSERT [Agendamentos] ON;
 INSERT INTO [Agendamentos] ([Id], [EstabelecimentoId], [FormasDePagamento], [Hora_ag], [Local_ag], [UsuarioId], [data_ag])
-VALUES (CAST(1 AS bigint), CAST(1 AS bigint), 0, '2023-11-08T18:39:20.2990880-03:00', N'Av. Ramiz Galvão', CAST(1 AS bigint), '2023-11-08T00:00:00.0000000-03:00');
+VALUES (CAST(1 AS bigint), CAST(1 AS bigint), 0, '2023-12-05T23:25:42.0963410-03:00', N'Av. Ramiz Galvão', CAST(1 AS bigint), '2023-12-05T00:00:00.0000000-03:00');
 IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'EstabelecimentoId', N'FormasDePagamento', N'Hora_ag', N'Local_ag', N'UsuarioId', N'data_ag') AND [object_id] = OBJECT_ID(N'[Agendamentos]'))
     SET IDENTITY_INSERT [Agendamentos] OFF;
 GO
@@ -87,7 +90,7 @@ CREATE INDEX [IX_Estabelecimentos_UsuarioId] ON [Estabelecimentos] ([UsuarioId])
 GO
 
 INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
-VALUES (N'20231108213920_InitialCreate', N'7.0.7');
+VALUES (N'20231206022542_InitialCreate', N'7.0.7');
 GO
 
 COMMIT;
